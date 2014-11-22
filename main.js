@@ -31,8 +31,8 @@ function CityController($scope, $http) {
 			avgHum += parseInt($scope.citiesStats[i].main.humidity);
 			highHum = highHum > parseInt($scope.citiesStats[i].main.humidity) ? highHum : parseInt($scope.citiesStats[i].main.humidity);
 			city[i] = (parseInt($scope.citiesStats[i].main.temp) - 25) / 25; 
-			city[i] += (parseInt($scope.citiesStats[i].main.humidity) - 20) / 25;
-			city[i] += (parseInt($scope.citiesStats[i].wind.speed) - 2) / 2;
+			city[i] += (parseInt($scope.citiesStats[i].main.humidity) - 20) / 50;
+			city[i] += (parseInt($scope.citiesStats[i].wind.speed) - 2) / 30;
 			city[i] += (parseInt($scope.citiesStats[i].clouds.all) - 50) / 100;	
 		}
 		avgTemp = avgTemp / $scope.citiesStats.length;
@@ -43,7 +43,12 @@ function CityController($scope, $http) {
 		$scope.highestTemperature = highTemp;
 		$scope.averageHumidity = avgHum;
 		$scope.highestHumidity = highHum;
-
+		
+		for(var i = 0; i < city.length-1; ++i){
+			$scope.nicestWeather = city[i] < city[i+1] ? $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
+			$scope.worstWeather = city[i] > city[i+1] ? $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
+		}
+		
 	}
 	
 	$scope.updateCity = function(index) {
