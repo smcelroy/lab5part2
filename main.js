@@ -66,14 +66,6 @@ function CityController($scope, $http) {
 		$scope.highestTemperature = $scope.citiesStats[highestTempCityIndex].name;
 		$scope.highestHumidity = $scope.citiesStats[highestHumidityCityIndex].name;
 		
-		// for(var i = 0; i < city.length-1; ++i){
-		// 	$scope.nicestWeather = city[i] < city[i+1] ? $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
-		// 	$scope.worstWeather = city[i] > city[i+1] ? $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
-		// 	$scope.highestHumidity = $scope.citiesStats[i].main.humidity > $scope.citiesStats[i+1].main.humidity ?  $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
-		// 	$scope.highestHumidity = $scope.citiesStats[
-		// 	$scope.highestTemperature = $scope.citiesStats[i].main.temp > $scope.citiesStats[i+1].main.temp ?  $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
-		// }
-		
 	}
 	
 	$scope.updateCity = function(index) {
