@@ -1,7 +1,3 @@
-Array.max = function( array ){
-    return Math.max.apply( Math, array );
-};
-
 function CityController($scope, $http) {
 	//initialize citiesStats
 	$scope.citiesStats = [];
