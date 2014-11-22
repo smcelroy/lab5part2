@@ -1,3 +1,7 @@
+Array.max = function( array ){
+    return Math.max.apply( Math, array );
+};
+
 function CityController($scope, $http) {
 	//initialize citiesStats
 	$scope.citiesStats = [];
@@ -25,30 +29,50 @@ function CityController($scope, $http) {
 		var highHum = 0;
 		var city = [];
 	
+		var nicestCityIndex;
+		var worstCityIndex;
+		var highestTempCityIndex;
+		var highestHumidityCityIndex;
 		for(var i = 0; i < $scope.citiesStats.length; ++i){
 			avgTemp += parseInt($scope.citiesStats[i].main.temp); 			
 			avgHum += parseInt($scope.citiesStats[i].main.humidity);
-			city[i] = (parseInt($scope.citiesStats[i].main.temp) - 25) / 25; 
-			city[i] += (parseInt($scope.citiesStats[i].main.humidity) - 20) / 50;
-			city[i] += (parseInt($scope.citiesStats[i].wind.speed) - 2) / 30;
-			city[i] += (parseInt($scope.citiesStats[i].clouds.all) - 50) / 100;	
+			$scope.citiesStats[i].main.terribleness = Math.abs((parseInt($scope.citiesStats[i].main.temp) - 25) / 25); 
+			$scope.citiesStats[i].main.terribleness += Math.abs((parseInt($scope.citiesStats[i].main.humidity) - 20) / 50);
+			$scope.citiesStats[i].main.terribleness += Math.abs((parseInt($scope.citiesStats[i].wind.speed) - 2) / 30);
+			$scope.citiesStats[i].main.terribleness += Math.abs((parseInt($scope.citiesStats[i].clouds.all) - 50) / 100);	
+
+			if (isNaN(nicestCityIndex) || $scope.citiesStats[i].main.terribleness < $scope.citiesStats[nicestCityIndex].main.terribleness) {
+				nicestCityIndex	= i;
+			}
+			if (isNaN(worstCityIndex) || $scope.citiesStats[i].main.terribleness > $scope.citiesStats[worstCityIndex].main.terribleness) {
+				worstCityIndex	= i;
+			}
+			if (isNaN(highestTempCityIndex) || $scope.citiesStats[i].main.temp > $scope.citiesStats[highestTempCityIndex].main.temp) {
+				highestTempCityIndex = i;
+			}
+			if (isNaN(highestHumidityCityIndex) || $scope.citiesStats[i].main.humidity > $scope.citiesStats[highestHumidityCityIndex].main.humidity) {
+				highestHumidityCityIndex	= i;
+			}
+
 		}
 		avgTemp = avgTemp / $scope.citiesStats.length;
 		avgHum = avgHum / $scope.citiesStats.length;
 		
 		
 		$scope.averageTemperature = avgTemp;
-		$scope.highestTemperature = highTemp;
 		$scope.averageHumidity = avgHum;
-		$scope.highestHumidity = highHum;
+		$scope.nicestWeather = $scope.citiesStats[nicestCityIndex].name;
+		$scope.worstWeather = $scope.citiesStats[worstCityIndex].name;
+		$scope.highestTemperature = $scope.citiesStats[highestTempCityIndex].name;
+		$scope.highestHumidity = $scope.citiesStats[highestHumidityCityIndex].name;
 		
-		for(var i = 0; i < city.length-1; ++i){
-			$scope.nicestWeather = city[i] < city[i+1] ? $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
-			$scope.worstWeather = city[i] > city[i+1] ? $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
-			$scope.highestHumidity = $scope.citiesStats[i].main.humidity > $scope.citiesStats[i+1].main.humidity ?  $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
-			$scope.highestHumidity = $scope.citiesStats[
-			$scope.highestTemperature = $scope.citiesStats[i].main.temp > $scope.citiesStats[i+1].main.temp ?  $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
-		}
+		// for(var i = 0; i < city.length-1; ++i){
+		// 	$scope.nicestWeather = city[i] < city[i+1] ? $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
+		// 	$scope.worstWeather = city[i] > city[i+1] ? $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
+		// 	$scope.highestHumidity = $scope.citiesStats[i].main.humidity > $scope.citiesStats[i+1].main.humidity ?  $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
+		// 	$scope.highestHumidity = $scope.citiesStats[
+		// 	$scope.highestTemperature = $scope.citiesStats[i].main.temp > $scope.citiesStats[i+1].main.temp ?  $scope.citiesStats[i].name : $scope.citiesStats[i+1].name;
+		// }
 		
 	}
 	
