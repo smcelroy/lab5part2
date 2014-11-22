@@ -72,7 +72,7 @@
 					});
 				}
 				
-				$scope.$watch($scope.citiesStats, $scope.calculateStats);
+				$scope.$watch('citiesStats', $scope.calculateStats, true);
 			}
 			
 			
