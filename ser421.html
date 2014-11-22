@@ -2,24 +2,33 @@
 	<head>
 		<title>Task 2</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+	    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	    <link href="custom.css" rel="stylesheet">
 	</head>
 	<body ng-controller='CityController' Cross-Origin Resource Sharing>
-		<h1>City Weather Information</h1>
-		<div ng-repeat='city in citiesStats'>
-			<span>City:</span>
-			<input ng-model='city.name' value='city.name'>
-			<button ng-click="updateCity($index)">Update</button>
-			<div>Country: {{city.sys.country}} </div>
-			<div>Temperature: {{city.main.temp}} C</div>
-			<div>Humidity: {{city.main.humidity}} %</div>
-			<div>Wind Speed: {{city.wind.speed}} mph</div>
-			<div>Cloudiness: {{city.clouds.all}} %</div>
-			<br/>
+		<div class="container">
+			<div class="header">
+				<h1>City Weather Information</h1>
+			</div>
+			<div  class="jumbotron">
+				<div ng-repeat='city in citiesStats'>
+					<span>City:</span>
+					<input ng-model='city.name' value='city.name'>
+					<button ng-click="updateCity($index)">Update</button>
+					<div>Country: {{city.sys.country}}</div>
+					<div>Temperature: {{city.main.temp}} C</div>
+					<div>Humidity: {{city.main.humidity}} %</div>
+					<div>Wind Speed: {{city.wind.speed}} mph</div>
+					<div>Cloudiness: {{city.clouds.all}} %</div>
+				</div>
+			</div>
+			<div class="summary">
+				<p>The average temperature is <strong>{{averageTemperature}}</strong> and the hottest city is <strong>{{highestTemperature}}</strong>.</p>
+				<p>The average temperature is <strong>{{averageHumidity}}</strong> and the hottest city is <strong>{{highestHumidity}}</strong>.</p>
+			</div>
 		</div>
-		<div>
-			<div>The average temperature is {{averageTemperature}} and the hottest city is {{highestTemperature}}</div>
-			<div>The average temperature is {{averageHumidity}} and the hottest city is {{highestHumidity}}</div>
-		</div>
+
 		<script src="main.js"></script>
 
 	</body>
