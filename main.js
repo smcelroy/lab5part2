@@ -30,10 +30,10 @@ function CityController($scope, $http) {
 			highTemp = highTemp > parseInt($scope.citiesStats[i].main.temp) ? highTemp : parseInt($scope.citiesStats[i].main.temp);
 			avgHum += parseInt($scope.citiesStats[i].main.humidity);
 			highHum = highHum > parseInt($scope.citiesStats[i].main.humidity) ? highHum : parseInt($scope.citiesStats[i].main.humidity);
-//			city[i] = (parseInt($scope.citiesStats[i].main.temp) - 25) / 25; 
-//			city[i] += (parseInt($scope.citiesStats[i].main.humidity) - 20) / 25;
-//			city[i] += (parseInt($scope.citiesStats[i].main.
-			
+			city[i] = (parseInt($scope.citiesStats[i].main.temp) - 25) / 25; 
+			city[i] += (parseInt($scope.citiesStats[i].main.humidity) - 20) / 25;
+			city[i] += (parseInt($scope.citiesStats[i].wind.speed) - 2) / 2;
+			city[i] += (parseInt($scope.citiesStats[i].clouds.all) - 50) / 100;	
 		}
 		avgTemp = avgTemp / $scope.citiesStats.length;
 		avgHum = avgHum / $scope.citiesStats.length;
